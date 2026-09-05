@@ -1,0 +1,54 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block nav %}
+        {% if user.is_authenticated %}
+              <span>{{ user.username }}</span>
+              <a href="{% url 'sign_out' %}">Sign out</a>
+        {% else %}
+              <a href="{% url 'sign_in' %}">Sign in</a>
+        {% endif %}
+      <a class="add_post" href="{% if user.is_authenticated %}{% url 'add_post' %}{% else %}{% url 'sign_in' %}{% endif %}"{% if not user.is_authenticated %} onclick="alert('You have to sign in to be able to post')"{% endif %}><i class="fa-solid fa-pen"></i>Post</a>
+  
+{% endblock %}
+
+{% block content %}
+    
+    <div class="container-si">
+    <h1>Register</h1>
+    <form class="sign-up-form" method="post">
+        {% csrf_token %}
+        <div class="form-field">
+              {{ form.non_field_errors }}
+              {{ form.username.label_tag }}
+              {{ form.username }}
+              {{ form.username.errors }}
+        </div>
+
+        
+
+        <div class="form-field">
+              {{ form.email.label_tag }}
+              {{ form.email }}
+              {{ form.email.errors }}
+        </div>
+        
+        <div class="form-field">
+              {{ form.password1.label_tag }}
+              {{ form.password1 }}
+              {{ form.password1.errors }}
+        </div>
+        
+        <div class="form-field">
+              {{ form.password2.label_tag }}
+              {{ form.password2 }}
+              {{ form.password2.errors }}
+        </div>
+        
+        <button type="submit">Create Account</button>
+        <p>Already have an account? <a href="{% url 'sign_in' %}">Sign in instead</a></p>
+    </form>
+    
+</div>
+{% endblock %}

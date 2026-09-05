@@ -1,0 +1,30 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Add post{% endblock %}
+
+{% block nav %}
+    <a href="{% url 'home' %}">Return to Feed</a>
+{% endblock %}
+
+{% block content %}
+    <section class="post-editor">
+        <p class="editor-kicker">New entry</p>
+        <h1 class="editor-title">Write something worth keeping.</h1>
+        <p class="editor-intro">Put your thoughts on the page and share them with the community.</p>
+    <form class="post-form" method="post">
+        {% csrf_token %}
+        <div class="post-field">
+            <label for="{{ form.title.id_for_label }}">Title</label>
+            {{ form.title }}
+        </div>
+        <div class="post-field">
+            <label for="{{ form.content.id_for_label }}">Your story</label>
+            {{ form.content }}
+        </div>
+        <div class="post-form-actions">
+            <a class="cancel-link" href="{% url 'home' %}">Cancel</a>
+            <button type="submit"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i>Publish post</button>
+        </div>
+    </form>
+    </section>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block nav %}
+    <a href="{% url 'home' %}">Return to Feed</a>
+{% endblock %}
+
+{% block content %}
+    <main class="detail-page">
+        <article class="article-content">
+            <p class="article-kicker">Field notes</p>
+            <h1>{{ post.title }}</h1>
+            <div class="article-meta">
+                <span><i class="fa-solid fa-user" aria-hidden="true"></i>{% if post.author %}{{ post.author.username }}{% else %}Unknown user{% endif %}</span>
+                <span><i class="fa-regular fa-clock" aria-hidden="true"></i>{{ post.created_at|date:"M j, Y g:i A" }}</span>
+            </div>
+            <div class="article-body">{{ post.content|linebreaks }}</div>
+
+            {% if user == post.author %}
+                <div class="article-actions">
+                    <a href="{% url 'edit_post' post.id %}"><i class="fa-solid fa-pen" aria-hidden="true"></i>Edit</a>
+                    <a class="danger-action" href="{% url 'delete_post' post.id %}"><i class="fa-solid fa-trash" aria-hidden="true"></i>Delete</a>
+                </div>
+            {% endif %}
+        </article>
+
+        <section class="comments-section">
+            <div class="comments-heading">
+                <h2>Comments</h2>
+                <span>{{ comments|length }}</span>
+            </div>
+            <div class="comment-list">
+                {% for c in comments %}
+                    <article class="comment-item">
+                        <p class="comment-author"><i class="fa-solid fa-user" aria-hidden="true"></i>{{ c.username }}</p>
+                        <p class="comment-text">{{ c.comment }}</p>
+                    </article>
+                {% empty %}
+                    <p class="empty-comments">No comments yet. Start the conversation.</p>
+                {% endfor %}
+            </div>
+
+            <form class="comment-form" method="post">
+                {% csrf_token %}
+                <h3>Join the conversation</h3>
+                <div class="comment-fields">
+                    {{ form.username }}
+                    {{ form.comment }}
+                </div>
+                <button type="submit"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i>Post comment</button>
+            </form>
+        </section>
+    </main>
+{% endblock %}

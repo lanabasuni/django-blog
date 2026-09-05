@@ -1,0 +1,17 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Delete post{% endblock %}
+
+{% block nav %}
+    <a href="{% url 'home' %}">home page</a>
+{% endblock %}
+
+{% block content %}
+    <h1>Delete "{{ post.title }}"?</h1>
+    <p>This cannot be undone.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, delete</button>
+        <a href="{% url 'post_detail' post.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block nav %}
+    {% if not user.is_authenticated %}
+        <a href="{% url 'sign_in' %}">Sign in</a>
+    {% endif %}
+    <a class="add_post" href="{% if user.is_authenticated %}{% url 'add_post' %}{% else %}{% url 'sign_in' %}{% endif %}"{% if not user.is_authenticated %} onclick="alert('You have to sign in to be able to post')"{% endif %}><i class="fa-solid fa-pen"></i>Post</a>
+  
+{% endblock %}
+
+{% block content %}
+    <h3 class="feedheader">From the desk</h1>
+    {% for post in posts %}
+        <article class="post-card">  
+            <p class="post-date">{{ post.created_at|date:"M j, Y g:i A" }} ·<a href="{% url 'post_detail' post.id %}"> {{ post.comments.count }} comments</a></p>
+            <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
+            <p class="post-preview">{{ post.content|truncatewords:45 }}</a></p>
+            <p class="post-author"><i class="fa-solid fa-user" aria-hidden="true"></i>Posted by {% if post.author %}{{ post.author.username }}{% else %}Unknown user{% endif %}</p>
+        </article>
+    {% empty %}
+        <p>No posts yet.</p>
+    {% endfor %}
+{% endblock %}

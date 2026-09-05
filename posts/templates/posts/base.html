@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+     <link href="{% static 'posts/style.css' %}" rel="stylesheet">
+    <title>{% block title %}Ink & Aftermath{% endblock %}</title>
+</head>
+<body>
+    <div class="container">
+    <header>
+        <nav class="nav">
+            <div class="container-fluid">
+                <a class="brand" href="{% url 'home' %}" aria-label="My Blog home">
+                    <span class="brand-logo" aria-hidden="true"><i class="fa-solid fa-pen-nib"></i></span>
+                    <span>Ink & Aftermath</span>
+                </a>
+                <div class="nav-links">
+                        {% if user.is_authenticated %}
+                            <span>{{ user.username }}</span>
+                            <a href="{% url 'sign_out' %}">Sign out</a>
+                        {% endif %}
+                    {% block nav %}{% endblock %}
+                </div>
+                
+            </div>
+            
+        </nav>
+        <hr class="nav-divider">
+    </header>
+    
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

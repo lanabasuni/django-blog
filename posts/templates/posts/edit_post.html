@@ -1,0 +1,30 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Edit post{% endblock %}
+
+{% block nav %}
+    <a href="{% url 'post_detail' post.id %}">Return to Post</a>
+{% endblock %}
+
+{% block content %}
+    <section class="post-editor">
+        <p class="editor-kicker">Edit entry</p>
+        <h1 class="editor-title">Refine your story.</h1>
+        <p class="editor-intro">Make a change, then save the latest version of your post.</p>
+    <form class="post-form" method="post">
+        {% csrf_token %}
+        <div class="post-field">
+            <label for="{{ form.title.id_for_label }}">Title</label>
+            {{ form.title }}
+        </div>
+        <div class="post-field">
+            <label for="{{ form.content.id_for_label }}">Your story</label>
+            {{ form.content }}
+        </div>
+        <div class="post-form-actions">
+            <a class="cancel-link" href="{% url 'post_detail' post.id %}">Cancel</a>
+            <button type="submit"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>Save changes</button>
+        </div>
+    </form>
+    </section>
+{% endblock %}
