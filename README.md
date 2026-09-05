@@ -72,6 +72,25 @@ Each comment contains:
 
 Comments have a relationship with their corresponding posts, allowing comments to be retrieved directly from a post.
 
+## Screenshots
+
+### Home Page
+![Home Page](screenshots/homepage.png)
+
+### Login
+![Login Page](screenshots/login.png)
+
+### Post Details
+![Post Details](screenshots/view_post.png)
+
+### Create Post
+![Edit Post](screenshots/edit_post.png)
+
+### Edit Post
+![Create Post](screenshots/create_post.png)
+
+## Comments
+![Comments](screenshots/comments.png)
 
 The application uses Django views, forms, models, URL routing, and templates to connect these parts together.
 
